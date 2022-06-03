@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "dfx": "0.9.2",
+  "canisters": {
+    "multi_sig": {
+      "type": "motoko",
+      "main": "src/multi_sig/main.mo"
+    },
+    "multi_sig_assets": {
+      "type": "assets",
+      "source": [
+        "src/multi_sig_assets/assets"
+      ],
+      "dependencies": [
+        "multi_sig"
+      ]
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "",
+      "args": ""
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  }
+}
