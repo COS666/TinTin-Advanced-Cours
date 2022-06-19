@@ -1,0 +1,50 @@
+type wasm_module = vec nat8;
+type canister_id = principal;
+type anon_class_10_1 = 
+ service {
+   add_controller: () -> ();
+   propose: (Action, text) -> (Result);
+   set_approve_threshold: (nat, nat) -> ();
+   vote: (nat) -> (opt ProposalView);
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: ProposalView;
+ };
+type ProposalView = 
+ record {
+   action: Action;
+   agreed: vec principal;
+   approved: bool;
+   canister_status: opt CanisterStatus;
+   desc: text;
+   proposal_id: nat;
+ };
+type InstallCodeParams = 
+ record {
+   arg: vec nat8;
+   canister_id: canister_id;
+   mode: variant {
+           install;
+           reinstall;
+           upgrade;
+         };
+   wasm_module: wasm_module;
+ };
+type CanisterStatus = 
+ variant {
+   deleted;
+   running;
+   stopped;
+   stopping;
+ };
+type Action = 
+ variant {
+   create_canister;
+   delete_canister: canister_id;
+   install_code: InstallCodeParams;
+   start_canister: canister_id;
+   stop_canister: canister_id;
+ };
+service : (nat, nat, vec principal) -> anon_class_10_1
